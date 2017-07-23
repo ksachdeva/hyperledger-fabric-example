@@ -12,12 +12,14 @@ const ORDERER_TLS_CAROOT_PATH = './../crypto-config/ordererOrganizations/ksachde
 const client = new Client();
 
 // read in the envelope for the channel config raw bytes
+console.log('Reading the envelope from manually created channel transaction ..');
 const envelope = fs.readFileSync(path.join(__dirname, CHANNEL_1_PATH));
 
 // extract the configuration
+console.log('Extracting the channel configuration ..');
 const channelConfig = client.extractChannelConfig(envelope);
 
-// build an orderer instance
+// build an orderer that will be used to connect to it
 const data = fs.readFileSync(path.join(__dirname, ORDERER_TLS_CAROOT_PATH));
 const orderer: Orderer = client.newOrderer(ORDERER_URL, {
   'pem': Buffer.from(data).toString(),
@@ -25,6 +27,8 @@ const orderer: Orderer = client.newOrderer(ORDERER_URL, {
 });
 
 async function main() {
+
+  console.log('Setting up the cryptoSuite ..');
 
   // ## Setup the cryptosuite (we are using the built in default s/w based implementation)
   const cryptoSuite = Client.newCryptoSuite();
@@ -34,12 +38,16 @@ async function main() {
 
   client.setCryptoSuite(cryptoSuite);
 
+  console.log('Setting up the keyvalue store ..');
+
   // ## Setup the default keyvalue store where the state will be stored
   const store = await Client.newDefaultKeyValueStore({
     path: KEY_STORE_PATH_ORG1_ADMIN
   });
 
   client.setStateStore(store);
+
+  console.log('Creating the admin user context ..');
 
   // ###  GET THE NECESSRY KEY MATERIAL FOR THE ADMIN OF THE ORG 1 ##
   const cryptoContentOrg1Admin: IIdentityFiles = {
@@ -53,7 +61,7 @@ async function main() {
     cryptoContent: cryptoContentOrg1Admin
   });
 
-  // sign please
+  console.log('Signing the extracted channel configuration ..');
   const signature = client.signChannelConfig(channelConfig);
 
   // prepare the request
@@ -65,6 +73,7 @@ async function main() {
     txId: client.newTransactionID()
   };
 
+  console.log('Sending the request to create the channel ..');
   const response = await client.createChannel(channelRequest);
 
   console.log(response);
