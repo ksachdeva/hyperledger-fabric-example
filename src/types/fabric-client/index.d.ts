@@ -73,7 +73,6 @@ interface ISigningIdentity {
 }
 
 declare class User {
-  constructor(config: IUserConfig);
   getName(): string;
   getRoles(): string[];
   setRoles(roles: string[]): void;
@@ -86,11 +85,9 @@ declare class User {
 }
 
 declare class Orderer {
-  constructor(url: string, opts: ConnectionOptions);
 }
 
 declare class Channel {
-  constructor(name: string, client: Client);
   addOrderer(orderer: Orderer): void;
 }
 
@@ -103,7 +100,6 @@ declare abstract class BaseClient {
 }
 
 declare class TransactionId {
-  constructor(userContext: User);
   getTransactionId(): string;
 }
 
