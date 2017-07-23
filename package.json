@@ -1,0 +1,26 @@
+{
+  "name": "hyperledger-fabric-example",
+  "version": "0.1.0",
+  "description": "Hyperledger Fabric Bootstrap Example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksachdeva/hyperledger-fabric-example.git"
+  },
+  "author": "Kapil Sachdeva",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ksachdeva/hyperledger-fabric-example/issues"
+  },
+  "homepage": "https://github.com/ksachdeva/hyperledger-fabric-example#readme",
+  "devDependencies": {
+    "ts-node": "^3.2.1",
+    "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "fabric-client": "^1.0.0"
+  }
+}

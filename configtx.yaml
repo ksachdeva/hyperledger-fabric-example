@@ -1,0 +1,86 @@
+Profiles:
+
+    ThreeOrgsOrdererGenesis:
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - *Org1
+                    - *Org2
+                    - *Org3
+
+    ThreeOrgsChannel:
+        Consortium: SampleConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Org1
+                - *Org2
+                - *Org3
+
+Organizations:
+
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererMSP
+        MSPDir: crypto-config/ordererOrganizations/ksachdeva-exp.com/msp
+
+    - &Org1
+        Name: Org1MSP
+        ID: Org1MSP
+        MSPDir: crypto-config/peerOrganizations/org1.ksachdeva-exp.com/msp
+        AnchorPeers:
+            # AnchorPeers defines the location of peers which can be used
+            # for cross org gossip communication.  Note, this value is only
+            # encoded in the genesis block in the Application section context
+            - Host: peer0.org1.ksachdeva-exp.com
+              Port: 7051
+
+    - &Org2
+        Name: Org2MSP
+        ID: Org2MSP
+        MSPDir: crypto-config/peerOrganizations/org2.ksachdeva-exp.com/msp
+        AnchorPeers:
+            - Host: peer0.org2.ksachdeva-exp.com
+              Port: 7051
+
+    - &Org3
+        Name: Org3MSP
+        ID: Org3MSP
+        MSPDir: crypto-config/peerOrganizations/org3.ksachdeva-exp.com/msp
+        AnchorPeers:
+            - Host: peer0.org3.ksachdeva-exp.com
+              Port: 7051
+
+Orderer: &OrdererDefaults
+
+    # Available types are "solo" and "kafka"
+    OrdererType: solo
+
+    Addresses:
+        - orderer.ksachdeva-exp.com:7050
+
+    BatchTimeout: 2s
+
+    BatchSize:
+
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+
+    Kafka:
+        Brokers:
+            - 127.0.0.1:9092
+
+    # Organizations is the list of orgs which are defined as participants on
+    # the orderer side of the network
+    Organizations:
+
+Application: &ApplicationDefaults
+
+    # Organizations is the list of orgs which are defined as participants on
+    # the application side of the network
+    Organizations:

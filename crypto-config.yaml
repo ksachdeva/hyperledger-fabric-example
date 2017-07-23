@@ -1,0 +1,25 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: ksachdeva-exp.com
+    Specs:
+      - Hostname: orderer
+
+PeerOrgs:
+  - Name: Org1
+    Domain: org1.ksachdeva-exp.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Org2
+    Domain: org2.ksachdeva-exp.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
+  - Name: Org3
+    Domain: org3.ksachdeva-exp.com
+    Template:
+      Count: 2
+    Users:
+      Count: 1
