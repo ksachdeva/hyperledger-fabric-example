@@ -46,9 +46,11 @@ export async function getClient(): Promise<Client> {
 
   console.log('Creating the admin user context ..');
 
+  const privateKeyFile = fs.readdirSync(__dirname + '/../' + ORG1_ADMIN_MSP + '/keystore')[0];
+
   // ###  GET THE NECESSRY KEY MATERIAL FOR THE ADMIN OF THE ORG 1 ##
   const cryptoContentOrg1Admin: IIdentityFiles = {
-    privateKey: ORG1_ADMIN_MSP + '/keystore/c6f4d32192f246b301d1d632e497c7b30082aa4d46217c4d3bf7436827fd457b_sk',
+    privateKey: ORG1_ADMIN_MSP + '/keystore/' + privateKeyFile,
     signedCert: ORG1_ADMIN_MSP + '/signcerts/Admin@org1.ksachdeva-exp.com-cert.pem'
   };
 
