@@ -3,8 +3,19 @@
   "version": "0.1.0",
   "description": "Hyperledger Fabric Bootstrap Example",
   "main": "index.js",
+  "scripts-info": {
+    "info": "List available script",
+    "start-containers": "Starts the containers",
+    "stop-containers": "Stops the containers",
+    "create-channel": "Create the Channel"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "info": "npm-scripts-info",
+    "clean_production": "shx rm -rf ./production",
+    "docker-start-containers": "docker-compose -f docker-compose.yaml up",
+    "start-containers": "npm-run-all clean_production docker-start-containers",
+    "stop-containers": "docker-compose -f docker-compose.yaml down",
+    "create-channel": "ts-node src/create-channel"
   },
   "repository": {
     "type": "git",
@@ -18,7 +29,10 @@
   "homepage": "https://github.com/ksachdeva/hyperledger-fabric-example#readme",
   "devDependencies": {
     "ts-node": "^3.2.1",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "npm-run-all": "^4.0.2",
+    "npm-scripts-info": "^0.3.6",
+    "shx": "^0.2.2"
   },
   "dependencies": {
     "fabric-client": "^1.0.0"
