@@ -1,14 +1,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { getClient, getOrderer } from './client';
+import { Organization, getClient, getOrderer } from './client';
 
 const CHANNEL_NAME = 'ksachdeva-exp-channel-1';
 const CHANNEL_1_PATH = './../ksachdeva-exp-channel-1.tx';
 
 async function main() {
 
-  const client = await getClient();
-  const orderer = await getOrderer(client);
+  const org1Client = await getClient(Organization.ORG1);
+  const orderer = await getOrderer(org1Client);
 
   // read in the envelope for the channel config raw bytes
   console.log('Reading the envelope from manually created channel transaction ..');
@@ -16,10 +16,10 @@ async function main() {
 
   // extract the configuration
   console.log('Extracting the channel configuration ..');
-  const channelConfig = client.extractChannelConfig(envelope);
+  const channelConfig = org1Client.extractChannelConfig(envelope);
 
   console.log('Signing the extracted channel configuration ..');
-  const signature = client.signChannelConfig(channelConfig);
+  const signature = org1Client.signChannelConfig(channelConfig);
 
   // prepare the request
   const channelRequest: IChannelRequest = {
@@ -27,11 +27,11 @@ async function main() {
     config: channelConfig,
     signatures: [signature],
     orderer: orderer,
-    txId: client.newTransactionID()
+    txId: org1Client.newTransactionID()
   };
 
   console.log('Sending the request to create the channel ..');
-  const response = await client.createChannel(channelRequest);
+  const response = await org1Client.createChannel(channelRequest);
 
   console.log(response);
 }
