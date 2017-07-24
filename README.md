@@ -52,3 +52,11 @@ See [Bootstrapping the Hyperledger Fabric Network (Part 3)](https://ksachdeva.gi
 ```bash
 configtxgen -profile ThreeOrgsChannel -outputCreateChannelTx ./ksachdeva-exp-channel-1.tx -channelID ksachdeva-exp-channel-1
 ```
+
+#### Creating the new channel
+
+See [Bootstrapping the Hyperledger Fabric Network (Part 4)](https://ksachdeva.github.io/2017/07/23/bootstrapping-hyperledger-fabric-nw-4/)
+
+```bash
+npm run create-channel
+```
