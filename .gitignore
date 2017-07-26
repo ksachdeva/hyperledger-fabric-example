@@ -64,3 +64,4 @@ crypto-config
 genesis.block
 ksachdeva-exp-channel-1.tx
 package-lock.json
+bin

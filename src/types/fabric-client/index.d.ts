@@ -72,6 +72,30 @@ interface ISigningIdentity {
 
 }
 
+interface IOrdererRequest {
+  txId: TransactionId;
+}
+
+interface IJoinChannelRequest {
+  txId: TransactionId;
+  targets: Peer[];
+  block: Buffer;
+}
+
+interface IResponse {
+  status: number;
+  message: string;
+  payload: Buffer;
+}
+
+interface IProposalResponse {
+  version: number;
+  timestamp: Date;
+  response: IResponse;
+  payload: Buffer;
+  endorsement: any;
+}
+
 declare class User {
   getName(): string;
   getRoles(): string[];
@@ -87,8 +111,15 @@ declare class User {
 declare class Orderer {
 }
 
+declare class Peer {
+
+}
+
 declare class Channel {
   addOrderer(orderer: Orderer): void;
+  getGenesisBlock(request: IOrdererRequest): Promise<any>;
+  getChannelConfig(): Promise<any>;
+  joinChannel(request: IJoinChannelRequest): Promise<IProposalResponse>;
 }
 
 declare abstract class BaseClient {
@@ -108,6 +139,7 @@ declare class Client extends BaseClient {
   setDevMode(mode: boolean): void;
   newOrderer(url: string, opts: ConnectionOptions): Orderer;
   newChannel(name: string): Channel;
+  newPeer(url: string, opts: ConnectionOptions): Peer;
   newTransactionID(): TransactionId;
   extractChannelConfig(envelope: Buffer): Buffer;
   createChannel(request: IChannelRequest): Promise<IBroadcastResponse>;

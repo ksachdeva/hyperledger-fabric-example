@@ -7,7 +7,8 @@
     "info": "List available script",
     "start-containers": "Starts the containers",
     "stop-containers": "Stops the containers",
-    "create-channel": "Create the Channel"
+    "create-channel": "Create the Channel",
+    "join-channel" : "Join Peers to the channel"
   },
   "scripts": {
     "info": "npm-scripts-info",
@@ -15,7 +16,8 @@
     "docker-start-containers": "docker-compose -f docker-compose.yaml up",
     "start-containers": "npm-run-all clean_production docker-start-containers",
     "stop-containers": "docker-compose -f docker-compose.yaml down",
-    "create-channel": "ts-node src/create-channel"
+    "create-channel": "ts-node src/create-channel",
+    "join-channel": "ts-node src/join-channel"
   },
   "repository": {
     "type": "git",

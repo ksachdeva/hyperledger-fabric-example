@@ -31,6 +31,58 @@ const MSP_ID = {
   org3: 'Org3MSP'
 };
 
+const PEERS = {
+  org1: {
+    peers: [
+      {
+        url: 'grpcs://localhost:7051' // peer0
+      },
+      {
+        url: 'grpcs://localhost:8051' // peer1
+      }
+    ]
+  },
+  org2: {
+    peers: [
+      {
+        url: 'grpcs://localhost:9051' // peer0
+      },
+      {
+        url: 'grpcs://localhost:10051' // peer1
+      }
+    ]
+  },
+  org3: {
+    peers: [
+      {
+        url: 'grpcs://localhost:11051' // peer0
+      },
+      {
+        url: 'grpcs://localhost:12051' // peer1
+      }
+    ]
+  }
+};
+
+export async function getPeers(client: Client, org: Organization): Promise<Peer[]> {
+  const peers: Peer[] = [];
+
+  for (let i = 0; i < 2; i++) {
+
+    const tls_cacert = `./../crypto-config/peerOrganizations/${org}.ksachdeva-exp.com/peers/peer${i}.${org}.ksachdeva-exp.com/tls/ca.crt`;
+
+    const data = fs.readFileSync(path.join(__dirname, tls_cacert));
+    const p = client.newPeer(PEERS[org].peers[i].url, {
+      'pem': Buffer.from(data).toString(),
+      'ssl-target-name-override': `peer${i}.${org}.ksachdeva-exp.com`
+    });
+
+    peers[i] = p;
+  }
+
+  return peers;
+}
+
 export async function getOrderer(client: Client): Promise<Orderer> {
   // build an orderer that will be used to connect to it
   const data = fs.readFileSync(path.join(__dirname, ORDERER_TLS_CAROOT_PATH));
