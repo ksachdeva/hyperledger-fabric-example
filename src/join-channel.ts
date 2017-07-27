@@ -10,16 +10,14 @@ async function joinOrgPeersToChannel(org: Organization) {
 
   console.log('Creating a Channel object ..');
   const channel = client.newChannel(CHANNEL_NAME);
-  const request = {
-    txId: client.newTransactionID()
-  };
 
   console.log('Specifiying the orderer to connect to ..');
   channel.addOrderer(orderer);
 
   console.log('Getting the genesis block for the ${CHANNEL_NAME} ..');
-  const genesis_block = await channel.getGenesisBlock(request);
-
+  const genesis_block = await channel.getGenesisBlock({
+    txId: client.newTransactionID()
+  });
 
   console.log('Getting the peers ..');
   const peers = await getPeers(client, org);

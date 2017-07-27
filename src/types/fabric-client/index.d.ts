@@ -60,6 +60,11 @@ interface IChannelRequest {
   signatures: IConfigSignature[];
 }
 
+interface ITransactionRequest {
+  proposalResponses: IProposalResponse[];
+  proposal: any;
+}
+
 interface IBroadcastResponse {
   status: string;
 }
@@ -70,6 +75,25 @@ interface IIdentity {
 
 interface ISigningIdentity {
 
+}
+
+interface IChaincodeInstallRequest {
+  targets: Peer[];
+  chaincodePath: string;
+  chaincodeId: string;
+  chaincodeVersion: string;
+  chaincodePackage?: Buffer;
+  chaincodeType?: string;
+}
+
+interface IChaincodeInstantiateUpgradeRequest {
+  targets?: Peer[];
+  chaincodeType?: string;
+  chaincodeId: string;
+  chaincodeVersion: string;
+  txId: TransactionId;
+  fcn?: string;
+  args?: string[];
 }
 
 interface IOrdererRequest {
@@ -96,6 +120,8 @@ interface IProposalResponse {
   endorsement: any;
 }
 
+type ProposalResponseObject = [Array<IProposalResponse>, any, any];
+
 declare class User {
   getName(): string;
   getRoles(): string[];
@@ -116,10 +142,14 @@ declare class Peer {
 }
 
 declare class Channel {
+  initialize(): Promise<void>;
   addOrderer(orderer: Orderer): void;
+  addPeer(peer: Peer): void;
   getGenesisBlock(request: IOrdererRequest): Promise<any>;
   getChannelConfig(): Promise<any>;
   joinChannel(request: IJoinChannelRequest): Promise<IProposalResponse>;
+  sendInstantiateProposal(request: IChaincodeInstantiateUpgradeRequest): Promise<ProposalResponseObject>;
+  sendTransaction(request: ITransactionRequest): Promise<IBroadcastResponse>;
 }
 
 declare abstract class BaseClient {
@@ -146,7 +176,7 @@ declare class Client extends BaseClient {
   createUser(opts: IUserOptions): Promise<User>;
   signChannelConfig(config: Buffer): IConfigSignature;
   setStateStore(store: IKeyValueStore): void;
-
+  installChaincode(request: IChaincodeInstallRequest): Promise<IProposalResponse>;
 }
 
 declare module 'fabric-client' {
