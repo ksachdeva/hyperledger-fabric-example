@@ -1,8 +1,7 @@
 import * as path from 'path';
 import Client = require('fabric-client');
 import { Organization, getClient, getOrderer, getPeers } from './client';
-
-const CHANNEL_NAME = 'ksachdeva-exp-channel-1';
+import config from './config';
 
 async function installChaincodeOnPeers(org: Organization) {
 
@@ -10,7 +9,7 @@ async function installChaincodeOnPeers(org: Organization) {
   const orderer = await getOrderer(client);
 
   console.log('Creating a Channel object ..');
-  const channel = client.newChannel(CHANNEL_NAME);
+  const channel = client.newChannel(config.CHANNEL_NAME);
 
   console.log('Specifiying the orderer to connect to ..');
   channel.addOrderer(orderer);
@@ -29,7 +28,7 @@ async function installChaincodeOnPeers(org: Organization) {
 
   const proposalResponse = await client.installChaincode({
     targets: peers,
-    chaincodeId: 'ksachdeva-exp-cc',
+    chaincodeId: config.CHAIN_CODE_ID,
     chaincodePath: 'github.com/example_cc',
     chaincodeVersion: 'v0'
   });

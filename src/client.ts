@@ -3,7 +3,6 @@ import * as path from 'path';
 
 import Client = require('fabric-client');
 
-const CHANNEL_NAME = 'ksachdeva-exp-channel-1';
 const CHANNEL_1_PATH = './../ksachdeva-exp-channel-1.tx';
 const KEY_STORE_PATH_ADMIN = './keystore/admin';
 const ORDERER_URL = 'grpcs://localhost:7050';

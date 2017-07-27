@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { Organization, getClient, getOrderer } from './client';
+import config from './config';
 
-const CHANNEL_NAME = 'ksachdeva-exp-channel-1';
 const CHANNEL_1_PATH = './../ksachdeva-exp-channel-1.tx';
 
 async function main() {
@@ -23,7 +23,7 @@ async function main() {
 
   // prepare the request
   const channelRequest: ChannelRequest = {
-    name: CHANNEL_NAME,
+    name: config.CHANNEL_NAME,
     config: channelConfig,
     signatures: [signature],
     orderer: orderer,
