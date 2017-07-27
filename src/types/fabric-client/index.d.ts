@@ -107,6 +107,35 @@ interface ChaincodeInstantiateUpgradeRequest {
   args?: string[];
 }
 
+interface ChaincodeInvokeRequest {
+  targets?: Peer[];
+  chaincodeId: string;
+  txId: TransactionId;
+  fcn?: string;
+  args: string[];
+}
+
+interface ChaincodeQueryRequest {
+  targets?: Peer[];
+  chaincodeId: string;
+  txId: TransactionId;
+  fcn?: string;
+  args: string[];
+}
+
+interface ChaincodeInfo {
+  name: string;
+  version: string;
+  path: string;
+  input: string;
+  escc: string;
+  vscc: string;
+}
+
+interface ChaincodeQueryResponse {
+  chaincodes: ChaincodeInfo[];
+}
+
 interface OrdererRequest {
   txId: TransactionId;
 }
@@ -171,7 +200,9 @@ declare class Channel {
   getChannelConfig(): Promise<any>;
   joinChannel(request: JoinChannelRequest): Promise<ProposalResponse>;
   sendInstantiateProposal(request: ChaincodeInstantiateUpgradeRequest): Promise<ProposalResponseObject>;
+  sendTransactionProposal(request: ChaincodeInvokeRequest): Promise<ProposalResponseObject>;
   sendTransaction(request: TransactionRequest): Promise<BroadcastResponse>;
+  queryByChaincode(request: ChaincodeQueryRequest): Promise<Buffer[]>;
 }
 
 declare abstract class BaseClient {

@@ -10,7 +10,9 @@
     "create-channel": "Create the Channel",
     "join-channel": "Join Peers to the channel",
     "install-chaincode": "Install the chaincode on the peers",
-    "instantiate-chaincode": "Instantiate the chaincode for the channel"
+    "instantiate-chaincode": "Instantiate the chaincode for the channel",
+    "invoke-transaction": "Invoke a transaction",
+    "query-chaincode": "Query the chaincode"
   },
   "scripts": {
     "info": "npm-scripts-info",
@@ -18,10 +20,12 @@
     "docker-start-containers": "docker-compose -f docker-compose.yaml up",
     "start-containers": "npm-run-all clean_production docker-start-containers",
     "stop-containers": "docker-compose -f docker-compose.yaml down",
-    "create-channel": "ts-node src/create-channel",
-    "join-channel": "ts-node src/join-channel",
-    "install-chaincode": "ts-node src/install-chaincode",
-    "instantiate-chaincode": "ts-node src/instantiate-chaincode"
+    "create-channel": "ts-node src/create-channel.ts",
+    "join-channel": "ts-node src/join-channel.ts",
+    "install-chaincode": "ts-node src/install-chaincode.ts",
+    "instantiate-chaincode": "ts-node src/instantiate-chaincode.ts",
+    "invoke-transaction": "ts-node src/invoke-transaction.ts",
+    "query-chaincode" : "ts-node src/query-chaincode.ts"
   },
   "repository": {
     "type": "git",
