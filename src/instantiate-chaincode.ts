@@ -12,7 +12,7 @@ async function instantiateChaincodeOnPeers(org: Organization) {
   console.log('Creating a Channel object ..');
   const channel = client.newChannel(config.CHANNEL_NAME);
 
-  console.log('Specifiying the orderer to connect to ..');
+  console.log('Specifying the orderer to connect to ..');
   channel.addOrderer(orderer);
 
   console.log('Getting the peers ..');
