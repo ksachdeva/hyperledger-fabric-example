@@ -60,3 +60,37 @@ See [Bootstrapping the Hyperledger Fabric Network (Part 4)](https://ksachdeva.gi
 ```bash
 npm run create-channel
 ```
+
+### Make Peers join the new channel
+
+See [Bootstrapping the Hyperledger Fabric Network (Part 5)](https://ksachdeva.github.io/2017/07/24/bootstrapping-hyperledger-fabric-nw-5/)
+
+```bash
+# Stop already running orderer containers
+npm run stop-containers
+# This will start both orderer & peer containers
+npm run start-containers
+# Create the channel again as when we start-containers we remove the previous data from the containers
+npm run create-channel
+# Join the channel
+npm run join-channel
+```
+
+### Install and instantiate the chaincode
+
+See [Bootstrapping the Hyperledger Fabric Network (Part 6)](https://ksachdeva.github.io/2017/07/27/bootstrapping-hyperledger-fabric-nw-6/)
+
+```bash
+npm run install-chaincode
+npm run instantiate-chaincode
+```
+
+### Invoke the transaction & Query the chaincode
+
+See [Invoking a transaction on Hyperledger Fabric Network](https://ksachdeva.github.io/2017/07/27/invoking-a-transaction-on-fabric/)
+
+```bash
+npm run query-chaincode
+npm run invoke-transaction
+npm run query-chaincode
+```
