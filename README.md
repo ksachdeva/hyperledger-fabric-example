@@ -61,7 +61,7 @@ See [Bootstrapping the Hyperledger Fabric Network (Part 4)](https://ksachdeva.gi
 npm run create-channel
 ```
 
-### Make Peers join the new channel
+#### Make Peers join the new channel
 
 See [Bootstrapping the Hyperledger Fabric Network (Part 5)](https://ksachdeva.github.io/2017/07/24/bootstrapping-hyperledger-fabric-nw-5/)
 
@@ -76,7 +76,7 @@ npm run create-channel
 npm run join-channel
 ```
 
-### Install and instantiate the chaincode
+#### Install and instantiate the chaincode
 
 See [Bootstrapping the Hyperledger Fabric Network (Part 6)](https://ksachdeva.github.io/2017/07/27/bootstrapping-hyperledger-fabric-nw-6/)
 
@@ -85,7 +85,7 @@ npm run install-chaincode
 npm run instantiate-chaincode
 ```
 
-### Invoke the transaction & Query the chaincode
+#### Invoke the transaction & Query the chaincode
 
 See [Invoking a transaction on Hyperledger Fabric Network](https://ksachdeva.github.io/2017/07/27/invoking-a-transaction-on-fabric/)
 
