@@ -124,7 +124,7 @@ export async function getClient(org: Organization): Promise<Client> {
   const privateKeyFile = fs.readdirSync(__dirname + '/../' + ORG_ADMIN_MSP + '/keystore')[0];
 
   // ###  GET THE NECESSRY KEY MATERIAL FOR THE ADMIN OF THE SPECIFIED ORG  ##
-  const cryptoContentOrgAdmin: IIdentityFiles = {
+  const cryptoContentOrgAdmin: IdentityFiles = {
     privateKey: ORG_ADMIN_MSP + '/keystore/' + privateKeyFile,
     signedCert: ORG_ADMIN_MSP + '/signcerts/Admin@' + org + '.ksachdeva-exp.com-cert.pem'
   };

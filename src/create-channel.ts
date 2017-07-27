@@ -22,7 +22,7 @@ async function main() {
   const signature = org1Client.signChannelConfig(channelConfig);
 
   // prepare the request
-  const channelRequest: IChannelRequest = {
+  const channelRequest: ChannelRequest = {
     name: CHANNEL_NAME,
     config: channelConfig,
     signatures: [signature],

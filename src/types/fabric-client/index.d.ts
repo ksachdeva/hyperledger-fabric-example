@@ -2,7 +2,7 @@ interface ConnectionOptions {
 
 }
 
-interface IConfigSignature {
+interface ConfigSignature {
   signature_header: Buffer;
   signature: Buffer;
 }
@@ -23,23 +23,23 @@ interface IKeyValueStore {
 
 }
 
-interface IIdentityFiles {
+interface IdentityFiles {
   privateKey: string;
   signedCert: string;
 }
 
-interface IIdentityPEMs {
+interface IdentityPEMs {
   privateKeyPEM: string;
   signedCertPEM: string;
 }
 
-interface IUserOptions {
+interface UserOptions {
   username: string;
   mspid: string;
-  cryptoContent: IIdentityFiles | IIdentityPEMs;
+  cryptoContent: IdentityFiles | IdentityPEMs;
 }
 
-interface IUserConfig {
+interface UserConfig {
   enrollmentID: string;
   name: string
   roles?: string[];
@@ -51,21 +51,21 @@ interface ICryptoSuite {
   setCryptoKeyStore(cryptoKeyStore: ICryptoKeyStore): void;
 }
 
-interface IChannelRequest {
+interface ChannelRequest {
   name: string;
   orderer: Orderer;
   envelope?: Buffer;
   config?: Buffer;
   txId?: TransactionId;
-  signatures: IConfigSignature[];
+  signatures: ConfigSignature[];
 }
 
-interface ITransactionRequest {
-  proposalResponses: IProposalResponse[];
+interface TransactionRequest {
+  proposalResponses: ProposalResponse[];
   proposal: any;
 }
 
-interface IBroadcastResponse {
+interface BroadcastResponse {
   status: string;
 }
 
@@ -77,7 +77,7 @@ interface ISigningIdentity {
 
 }
 
-interface IChaincodeInstallRequest {
+interface ChaincodeInstallRequest {
   targets: Peer[];
   chaincodePath: string;
   chaincodeId: string;
@@ -86,7 +86,7 @@ interface IChaincodeInstallRequest {
   chaincodeType?: string;
 }
 
-interface IChaincodeInstantiateUpgradeRequest {
+interface ChaincodeInstantiateUpgradeRequest {
   targets?: Peer[];
   chaincodeType?: string;
   chaincodeId: string;
@@ -96,31 +96,31 @@ interface IChaincodeInstantiateUpgradeRequest {
   args?: string[];
 }
 
-interface IOrdererRequest {
+interface OrdererRequest {
   txId: TransactionId;
 }
 
-interface IJoinChannelRequest {
+interface JoinChannelRequest {
   txId: TransactionId;
   targets: Peer[];
   block: Buffer;
 }
 
-interface IResponse {
+interface ResponseObject {
   status: number;
   message: string;
   payload: Buffer;
 }
 
-interface IProposalResponse {
+interface ProposalResponse {
   version: number;
   timestamp: Date;
-  response: IResponse;
+  response: ResponseObject;
   payload: Buffer;
   endorsement: any;
 }
 
-type ProposalResponseObject = [Array<IProposalResponse>, any, any];
+type ProposalResponseObject = [Array<ProposalResponse>, any, any];
 
 declare class User {
   getName(): string;
@@ -145,11 +145,11 @@ declare class Channel {
   initialize(): Promise<void>;
   addOrderer(orderer: Orderer): void;
   addPeer(peer: Peer): void;
-  getGenesisBlock(request: IOrdererRequest): Promise<any>;
+  getGenesisBlock(request: OrdererRequest): Promise<any>;
   getChannelConfig(): Promise<any>;
-  joinChannel(request: IJoinChannelRequest): Promise<IProposalResponse>;
-  sendInstantiateProposal(request: IChaincodeInstantiateUpgradeRequest): Promise<ProposalResponseObject>;
-  sendTransaction(request: ITransactionRequest): Promise<IBroadcastResponse>;
+  joinChannel(request: JoinChannelRequest): Promise<ProposalResponse>;
+  sendInstantiateProposal(request: ChaincodeInstantiateUpgradeRequest): Promise<ProposalResponseObject>;
+  sendTransaction(request: TransactionRequest): Promise<BroadcastResponse>;
 }
 
 declare abstract class BaseClient {
@@ -172,11 +172,11 @@ declare class Client extends BaseClient {
   newPeer(url: string, opts: ConnectionOptions): Peer;
   newTransactionID(): TransactionId;
   extractChannelConfig(envelope: Buffer): Buffer;
-  createChannel(request: IChannelRequest): Promise<IBroadcastResponse>;
-  createUser(opts: IUserOptions): Promise<User>;
-  signChannelConfig(config: Buffer): IConfigSignature;
+  createChannel(request: ChannelRequest): Promise<BroadcastResponse>;
+  createUser(opts: UserOptions): Promise<User>;
+  signChannelConfig(config: Buffer): ConfigSignature;
   setStateStore(store: IKeyValueStore): void;
-  installChaincode(request: IChaincodeInstallRequest): Promise<IProposalResponse>;
+  installChaincode(request: ChaincodeInstallRequest): Promise<ProposalResponse>;
 }
 
 declare module 'fabric-client' {
