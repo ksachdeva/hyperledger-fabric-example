@@ -1,3 +1,14 @@
+declare enum Status {
+  UNKNOWN = 0,
+  SUCCESS = 200,
+  BAD_REQUEST = 400,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  REQUEST_ENTITY_TOO_LARGE = 413,
+  INTERNAL_SERVER_ERROR = 500,
+  SERVICE_UNAVAILABLE = 503
+}
+
 interface ConnectionOptions {
 
 }
@@ -62,7 +73,7 @@ interface ChannelRequest {
 
 interface TransactionRequest {
   proposalResponses: ProposalResponse[];
-  proposal: any;
+  proposal: Proposal;
 }
 
 interface BroadcastResponse {
@@ -107,9 +118,20 @@ interface JoinChannelRequest {
 }
 
 interface ResponseObject {
-  status: number;
+  status: Status;
   message: string;
   payload: Buffer;
+}
+
+interface Proposal {
+  header: ByteBuffer;
+  payload: ByteBuffer;
+  extension: ByteBuffer;
+}
+
+interface Header {
+  channel_header: ByteBuffer;
+  signature_header: ByteBuffer;
 }
 
 interface ProposalResponse {
@@ -120,7 +142,7 @@ interface ProposalResponse {
   endorsement: any;
 }
 
-type ProposalResponseObject = [Array<ProposalResponse>, any, any];
+type ProposalResponseObject = [Array<ProposalResponse>, Proposal, Header];
 
 declare class User {
   getName(): string;

@@ -20,11 +20,10 @@ async function instantiateChaincodeOnPeers(org: Organization) {
 
   peers.map(p => channel.addPeer(p));
 
+  console.log('Initializing the channel ..');
   await channel.initialize();
 
-  // console.log('Getting the peers ..');
-  // const peers = await getPeers(client, org);
-
+  console.log('Sending the Instantiate Proposal ..');
   const proposalResponse = await channel.sendInstantiateProposal({
     chaincodeId: 'ksachdeva-exp-cc',
     chaincodeVersion: 'v0',
@@ -33,14 +32,11 @@ async function instantiateChaincodeOnPeers(org: Organization) {
     txId: client.newTransactionID()
   });
 
-  console.log(proposalResponse);
-
   const transactionResponse = await channel.sendTransaction({
     proposalResponses: proposalResponse[0],
     proposal: proposalResponse[1]
   });
 
-  console.log(transactionResponse);
 }
 
 async function main() {

@@ -8,9 +8,9 @@
     "start-containers": "Starts the containers",
     "stop-containers": "Stops the containers",
     "create-channel": "Create the Channel",
-    "join-channel" : "Join Peers to the channel",
+    "join-channel": "Join Peers to the channel",
     "install-chaincode": "Install the chaincode on the peers",
-    "instantiate-chaincode" : "Instantiate the chaincode for the channel"
+    "instantiate-chaincode": "Instantiate the chaincode for the channel"
   },
   "scripts": {
     "info": "npm-scripts-info",
@@ -21,7 +21,7 @@
     "create-channel": "ts-node src/create-channel",
     "join-channel": "ts-node src/join-channel",
     "install-chaincode": "ts-node src/install-chaincode",
-    "instantiate-chaincode" :"ts-node src/instantiate-chaincode"
+    "instantiate-chaincode": "ts-node src/instantiate-chaincode"
   },
   "repository": {
     "type": "git",
@@ -34,11 +34,12 @@
   },
   "homepage": "https://github.com/ksachdeva/hyperledger-fabric-example#readme",
   "devDependencies": {
-    "ts-node": "^3.2.1",
-    "typescript": "^2.4.2",
+    "@types/bytebuffer": "^5.0.33",
     "npm-run-all": "^4.0.2",
     "npm-scripts-info": "^0.3.6",
-    "shx": "^0.2.2"
+    "shx": "^0.2.2",
+    "ts-node": "^3.2.1",
+    "typescript": "^2.4.2"
   },
   "dependencies": {
     "fabric-client": "^1.0.0"
