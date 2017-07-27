@@ -36,13 +36,13 @@ configtxgen -profile ThreeOrgsOrdererGenesis -outputBlock ./genesis.block
 You can directly use the docker-compose command as specified in the blog post or using the command that I have hooked up in the package.json. The npm command also deletes 'production' folder so that every time your start the orderer node it starts with clean content.
 
 ```bash
-npm run start-containers
+npm run start-orderer
 ```
 
-Similarly to stop the containers simply issue
+Similarly to stop the orderer containers simply issue
 
 ```bash
-npm run stop-containers
+npm run stop-orderer
 ```
 
 #### Generating the channel configuration transaction

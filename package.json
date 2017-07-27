@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts-info": {
     "info": "List available script",
-    "start-containers": "Starts the containers",
+    "start-orderer": "Start the orderer container",
+    "stop-orderer": "Stop the orderer container",
+    "start-containers": "Starts all containers",
     "stop-containers": "Stops the containers",
     "create-channel": "Create the Channel",
     "join-channel": "Join Peers to the channel",
@@ -17,8 +19,11 @@
   "scripts": {
     "info": "npm-scripts-info",
     "clean_production": "shx rm -rf ./production",
+    "docker-start-orderer": "docker-compose -f docker-compose-orderer.yaml up",
     "docker-start-containers": "docker-compose -f docker-compose.yaml up",
+    "start-orderer": "npm-run-all clean_production docker-start-orderer",
     "start-containers": "npm-run-all clean_production docker-start-containers",
+    "stop-orderer": "docker-compose -f docker-compose-orderer.yaml down",
     "stop-containers": "docker-compose -f docker-compose.yaml down",
     "create-channel": "ts-node src/create-channel.ts",
     "join-channel": "ts-node src/join-channel.ts",
