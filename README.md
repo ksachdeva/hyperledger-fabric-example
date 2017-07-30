@@ -1,10 +1,17 @@
 ## Install
 
 ```bash
+# Fetch the Hyperledger Farbic tools and docker images
+curl -sSL https://goo.gl/iX9dek | bash
+```
+
+```bash
+# Install typescript & ts-node (globally) 
 npm install -g ts-node typescript
 ```
 
 ```bash
+# Install the dependencies of this project
 npm install
 ```
 
