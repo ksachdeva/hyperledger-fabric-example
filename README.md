@@ -1,4 +1,4 @@
-## Pre-requisite
+## Pre-requisites
 
 Make sure following tools/runtimes are installed
 * [NodeJS 6.X](https://nodejs.org/en/)
@@ -27,6 +27,35 @@ To see what are the commands that are available issue:
 
 ```bash
 npm run info
+```
+
+Should see response similar to:
+```bash
+> hyperledger-fabric-example@0.1.0 info /Users/ksachdeva/Desktop/Dev/projects/myoss/hyperledger-fabric-example
+> npm-scripts-info
+
+info:
+  List available script
+start-orderer:
+  Start the orderer container
+stop-orderer:
+  Stop the orderer container
+start-containers:
+  Starts all containers
+stop-containers:
+  Stops the containers
+create-channel:
+  Create the Channel
+join-channel:
+  Join Peers to the channel
+install-chaincode:
+  Install the chaincode on the peers
+instantiate-chaincode:
+  Instantiate the chaincode for the channel
+invoke-transaction:
+  Invoke a transaction
+query-chaincode:
+  Query the chaincode
 ```
 
 #### Generating the crypto material for all the organizations
