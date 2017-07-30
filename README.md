@@ -77,7 +77,7 @@ See [Bootstrapping the Hyperledger Fabric Network (Part 2)](https://ksachdeva.gi
 # You will find `configtxgen` in the `bin` folder created in the directory in which you
 # executed `curl -sSL https://goo.gl/iX9dek | bash`
 #
-# Also make sure to the FABRIC_CFG_PATH environment variable (it required by configtxgen tool)
+# Also make sure to set the FABRIC_CFG_PATH environment variable (it is required by configtxgen tool)
 #
 export FABRIC_CFG_PATH=$PWD
 configtxgen -profile ThreeOrgsOrdererGenesis -outputBlock ./genesis.block
