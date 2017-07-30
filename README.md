@@ -1,3 +1,9 @@
+## Pre-requisite
+
+Make sure following tools/runtimes are installed
+* [NodeJS 6.X](https://nodejs.org/en/)
+* [Docker (latest)](https://www.docker.com/)
+
 ## Install
 
 ```bash
@@ -6,7 +12,7 @@ curl -sSL https://goo.gl/iX9dek | bash
 ```
 
 ```bash
-# Install typescript & ts-node (globally) 
+# Install typescript & ts-node (globally)
 npm install -g ts-node typescript
 ```
 
