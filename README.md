@@ -64,6 +64,8 @@ query-chaincode:
 See [Bootstrapping the Hyperledger Fabric Network (Part 1)](https://ksachdeva.github.io/2017/07/21/bootstrapping-hyperledger-fabric-nw-1/)
 
 ```bash
+# You will find `cryptogen` in the `bin` folder created in the directory in which you
+# executed `curl -sSL https://goo.gl/iX9dek | bash`
 cryptogen generate --config=./crypto-config.yaml
 ```
 
@@ -72,6 +74,8 @@ cryptogen generate --config=./crypto-config.yaml
 See [Bootstrapping the Hyperledger Fabric Network (Part 2)](https://ksachdeva.github.io/2017/07/21/bootstrapping-hyperledger-fabric-nw-2/)
 
 ```bash
+# You will find `configtxgen` in the `bin` folder created in the directory in which you
+# executed `curl -sSL https://goo.gl/iX9dek | bash`
 configtxgen -profile ThreeOrgsOrdererGenesis -outputBlock ./genesis.block
 ```
 
