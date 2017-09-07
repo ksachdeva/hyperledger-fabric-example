@@ -43,8 +43,8 @@ async function instantiateChaincodeOnPeers(org: Organization) {
 async function main() {
 
   await instantiateChaincodeOnPeers(Organization.ORG1);
-  await instantiateChaincodeOnPeers(Organization.ORG2);
-  await instantiateChaincodeOnPeers(Organization.ORG3);
+  //await instantiateChaincodeOnPeers(Organization.ORG2);
+  //await instantiateChaincodeOnPeers(Organization.ORG3);
 
 }
 

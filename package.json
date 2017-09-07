@@ -30,7 +30,7 @@
     "install-chaincode": "ts-node src/install-chaincode.ts",
     "instantiate-chaincode": "ts-node src/instantiate-chaincode.ts",
     "invoke-transaction": "ts-node src/invoke-transaction.ts",
-    "query-chaincode" : "ts-node src/query-chaincode.ts"
+    "query-chaincode": "ts-node src/query-chaincode.ts"
   },
   "repository": {
     "type": "git",

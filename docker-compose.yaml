@@ -5,29 +5,137 @@ networks:
 
 services:
 
+  zookeeper0:
+    extends:
+      file: docker-kafka.yaml
+      service: zookeeper
+    container_name: zookeeper0
+    hostname: zookeeper0
+    environment:      
+      - ZOO_MY_ID=1      
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    networks:
+      - hf-exp
+
+  zookeeper1:
+    extends:
+      file: docker-kafka.yaml
+      service: zookeeper
+    container_name: zookeeper1
+    hostname: zookeeper1
+    environment:
+      - ZOO_MY_ID=2
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    networks:
+      - hf-exp
+
+  zookeeper2:
+    extends:
+      file: docker-kafka.yaml
+      service: zookeeper
+    container_name: zookeeper2
+    hostname: zookeeper2
+    environment:
+      - ZOO_MY_ID=3
+      - ZOO_SERVERS=server.1=zookeeper0:2888:3888 server.2=zookeeper1:2888:3888 server.3=zookeeper2:2888:3888
+    networks:
+      - hf-exp
+
+  kafka0:
+    extends:
+      file: docker-kafka.yaml
+      service: kafka
+    container_name: kafka0
+    hostname: kafka0
+    environment:      
+      - KAFKA_BROKER_ID=0      
+      - KAFKA_MIN_INSYNC_REPLICAS=2      
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3      
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181      
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2    
+    networks:
+      - hf-exp
+
+  kafka1:
+    extends:
+      file: docker-kafka.yaml
+      service: kafka
+    container_name: kafka1
+    hostname: kafka1
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2    
+    networks:
+      - hf-exp
+
+  kafka2:
+    extends:
+      file: docker-kafka.yaml
+      service: kafka
+    container_name: kafka2
+    hostname: kafka2
+    environment:
+      - KAFKA_BROKER_ID=2
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2  
+    networks:
+      - hf-exp  
+
+  kafka3:
+    extends:
+      file: docker-kafka.yaml
+      service: kafka
+    container_name: kafka3
+    hostname: kafka3
+    environment:
+      - KAFKA_BROKER_ID=3
+      - KAFKA_DEFAULT_REPLICATION_FACTOR=3
+      - KAFKA_MIN_INSYNC_REPLICAS=2
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper0:2181,zookeeper1:2181,zookeeper2:2181
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2   
+    networks:
+      - hf-exp 
+
   orderer.ksachdeva-exp.com:    
+    container_name: orderer.ksachdeva-exp.com
     extends:
       file:  docker-compose-orderer.yaml
       service: orderer.ksachdeva-exp.com
-
-  peer0.org1.ksachdeva-exp.com:
-    container_name: peer0.org1.ksachdeva-exp.com
-    extends:
-      file:  docker-peer-base.yaml
-      service: peer-base
-    environment:
-      - CORE_PEER_ID=peer0.org1.ksachdeva-exp.com
-      - CORE_PEER_ADDRESS=peer0.org1.ksachdeva-exp.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.ksachdeva-exp.com:7051
-      - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
-        - /var/run/:/host/var/run/
-        - ./production/org1-peer0:/var/hyperledger/production
-        - ./crypto-config/peerOrganizations/org1.ksachdeva-exp.com/peers/peer0.org1.ksachdeva-exp.com/msp:/etc/hyperledger/fabric/msp
-        - ./crypto-config/peerOrganizations/org1.ksachdeva-exp.com/peers/peer0.org1.ksachdeva-exp.com/tls:/etc/hyperledger/fabric/tls
-    ports:
-      - 7051:7051
-      - 7053:7053
+      - ./genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+      - ./crypto-config/ordererOrganizations/ksachdeva-exp.com/orderers/orderer.ksachdeva-exp.com/msp:/var/hyperledger/orderer/msp
+      - ./crypto-config/ordererOrganizations/ksachdeva-exp.com/orderers/orderer.ksachdeva-exp.com/tls/:/var/hyperledger/orderer/tls
+      - ./production:/var/hyperledger/production
+    depends_on:
+      - zookeeper0
+      - zookeeper1
+      - zookeeper2
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3  
+    links:
+      - kafka0
+      - kafka1
+      - kafka2
+      - kafka3
     networks:
       - hf-exp
 

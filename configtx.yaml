@@ -58,7 +58,7 @@ Organizations:
 Orderer: &OrdererDefaults
 
     # Available types are "solo" and "kafka"
-    OrdererType: solo
+    OrdererType: kafka
 
     Addresses:
         - orderer.ksachdeva-exp.com:7050
@@ -73,7 +73,9 @@ Orderer: &OrdererDefaults
 
     Kafka:
         Brokers:
-            - 127.0.0.1:9092
+            - kafka0:9092
+            - kafka1:9092
+            - kafka2:9092
 
     # Organizations is the list of orgs which are defined as participants on
     # the orderer side of the network
