@@ -28,7 +28,7 @@ async function queryChaincode(org: Organization) {
   const client = await getClient(org);
   const channel = await getChannel(client, org);
 
-  console.log(`Quering the Chaincode on the peers of  ${org} ..`);
+  console.log(`Quering the Chaincode on the peers of ${org} for value of 'a' ..`);
   const response = await channel.queryByChaincode({
     chaincodeId: config.CHAIN_CODE_ID,
     fcn: 'query',
@@ -38,6 +38,17 @@ async function queryChaincode(org: Organization) {
 
   console.log(`Peer0 of ${org} has ${response[0].toString('utf8')} as the current value for 'a'..`);
   console.log(`Peer1 of ${org} has ${response[1].toString('utf8')} as the current value for 'a'..`);
+
+  console.log(`Quering the Chaincode on the peers of ${org} for value of 'b' ..`);  
+  const response2 = await channel.queryByChaincode({
+    chaincodeId: config.CHAIN_CODE_ID,
+    fcn: 'query',
+    args: ["b"],
+    txId: client.newTransactionID()
+  });
+
+  console.log(`Peer0 of ${org} has ${response2[0].toString('utf8')} as the current value for 'b'..`);
+  console.log(`Peer1 of ${org} has ${response2[1].toString('utf8')} as the current value for 'b'..`);
 }
 
 async function main() {
